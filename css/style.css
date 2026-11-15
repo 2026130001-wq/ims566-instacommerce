@@ -1,0 +1,429 @@
+/* ==========================================================================
+   IMS566 Individual Project - E-Commerce Management Portal ("InstaCommerce")
+   Modern UI Stylesheet with Fluid Motion & Glassmorphism
+   Author: Aiman (Student ID: 2026130001)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary-dark: #090d16;
+  --surface-glass: rgba(255, 255, 255, 0.86);
+  --surface-card: #ffffff;
+  --accent-indigo: #4f46e5;
+  --accent-violet: #7c3aed;
+  --accent-cyan: #06b6d4;
+  --bg-surface: #f1f5f9;
+  --card-border: rgba(226, 232, 240, 0.85);
+  --ease-fluid: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ==========================================================================
+   1. FLUID KEYFRAME ANIMATIONS
+   ========================================================================== */
+@keyframes meshShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes floatOrb {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(18px, -22px, 0) scale(1.06);
+  }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-18deg);
+  }
+}
+
+/* ==========================================================================
+   2. GLOBAL BASE & SMOOTH PAGE ENTRANCE
+   ========================================================================== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-surface);
+  background-image:
+    radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.06) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.06) 0px, transparent 50%);
+  color: #0f172a;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  flex: 1;
+  animation: fadeSlideUp 0.65s var(--ease-fluid) both;
+}
+
+main > section {
+  animation: fadeSlideUp 0.65s var(--ease-fluid) both;
+}
+
+main > section:nth-child(1) { animation-delay: 0.04s; }
+main > section:nth-child(2) { animation-delay: 0.12s; }
+main > section:nth-child(3) { animation-delay: 0.20s; }
+main > section:nth-child(4) { animation-delay: 0.28s; }
+
+/* ==========================================================================
+   3. MODERN GLASSMORPHIC LOGIN & REGISTER VIEW
+   ========================================================================== */
+.auth-wrapper {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(-45deg, #090d16, #1e1b4b, #312e81, #0f172a);
+  background-size: 300% 300%;
+  animation: meshShift 14s ease infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+.auth-wrapper::before,
+.auth-wrapper::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.45;
+  pointer-events: none;
+  animation: floatOrb 9s ease-in-out infinite;
+}
+
+.auth-wrapper::before {
+  width: 340px;
+  height: 340px;
+  background: var(--accent-indigo);
+  top: 8%;
+  left: 12%;
+}
+
+.auth-wrapper::after {
+  width: 300px;
+  height: 300px;
+  background: var(--accent-cyan);
+  bottom: 10%;
+  right: 14%;
+  animation-delay: -4.5s;
+}
+
+.auth-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 440px;
+  background: rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 1.35rem;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+  animation: fadeSlideUp 0.75s var(--ease-fluid) both;
+  transition: transform 0.35s var(--ease-fluid), box-shadow 0.35s var(--ease-fluid);
+}
+
+.auth-card:hover {
+  transform: translateY(-3px);
+}
+
+/* ==========================================================================
+   4. FROSTED STICKY NAVBAR WITH FLUID PILLS
+   ========================================================================== */
+.navbar-custom {
+  background: rgba(9, 13, 22, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transition: background-color 0.3s ease;
+}
+
+.navbar-brand {
+  letter-spacing: -0.02em;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.navbar-brand:hover {
+  transform: scale(1.03);
+}
+
+.navbar-custom .nav-link {
+  position: relative;
+  color: #cbd5e1;
+  font-weight: 500;
+  padding: 0.55rem 1rem;
+  border-radius: 0.65rem;
+  transition: color 0.25s ease, background-color 0.25s ease, transform 0.25s var(--ease-spring);
+}
+
+.navbar-custom .nav-link:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+.navbar-custom .nav-link.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.85), rgba(124, 58, 237, 0.85));
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+}
+
+/* ==========================================================================
+   5. MODERN FORM CONTROLS & INTERACTIVE BUTTONS
+   ========================================================================== */
+.form-control,
+.form-select {
+  border-radius: 0.65rem;
+  border-color: #cbd5e1;
+  padding: 0.6rem 0.9rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--accent-indigo);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.14);
+}
+
+.input-group-text {
+  border-radius: 0.65rem;
+  border-color: #cbd5e1;
+}
+
+.btn {
+  border-radius: 0.65rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition:
+    transform 0.28s var(--ease-spring),
+    box-shadow 0.28s var(--ease-fluid),
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-indigo), var(--accent-violet));
+  border: none;
+  box-shadow: 0 6px 18px -4px rgba(79, 70, 229, 0.45);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #4338ca, #6d28d9);
+  box-shadow: 0 10px 24px -4px rgba(79, 70, 229, 0.6);
+}
+
+/* ==========================================================================
+   6. KPI SUMMARY CARDS WITH TACTILE SPRING HOVER
+   ========================================================================== */
+.kpi-card {
+  position: relative;
+  background: var(--surface-glass) !important;
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+  transition:
+    transform 0.35s var(--ease-fluid),
+    box-shadow 0.35s var(--ease-fluid),
+    border-color 0.3s ease;
+}
+
+.kpi-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.6) 50%, transparent 70%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+.kpi-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(79, 70, 229, 0.35);
+  box-shadow: 0 18px 32px -8px rgba(15, 23, 42, 0.1);
+}
+
+.kpi-card:hover::before {
+  animation: shimmerSweep 0.85s var(--ease-fluid);
+}
+
+.kpi-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  transition: transform 0.35s var(--ease-spring);
+}
+
+.kpi-card:hover .kpi-icon {
+  transform: scale(1.12) rotate(-6deg);
+}
+
+/* ==========================================================================
+   7. PRODUCT CATALOG CARDS & STAGGERED GRID ENTRANCE
+   ========================================================================== */
+#productGrid > div {
+  animation: fadeSlideUp 0.55s var(--ease-fluid) both;
+}
+
+#productGrid > div:nth-child(1) { animation-delay: 0.03s; }
+#productGrid > div:nth-child(2) { animation-delay: 0.07s; }
+#productGrid > div:nth-child(3) { animation-delay: 0.11s; }
+#productGrid > div:nth-child(4) { animation-delay: 0.15s; }
+#productGrid > div:nth-child(5) { animation-delay: 0.19s; }
+#productGrid > div:nth-child(6) { animation-delay: 0.23s; }
+#productGrid > div:nth-child(7) { animation-delay: 0.27s; }
+#productGrid > div:nth-child(8) { animation-delay: 0.31s; }
+
+.product-card {
+  border: 1px solid var(--card-border);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.04);
+  transition:
+    transform 0.38s var(--ease-fluid),
+    box-shadow 0.38s var(--ease-fluid),
+    border-color 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(79, 70, 229, 0.35);
+  box-shadow: 0 22px 36px -10px rgba(15, 23, 42, 0.13);
+}
+
+.product-img-placeholder {
+  position: relative;
+  height: 155px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.85rem;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.product-img-placeholder i {
+  transition: transform 0.45s var(--ease-spring);
+}
+
+.product-card:hover .product-img-placeholder i {
+  transform: scale(1.18) rotate(-5deg);
+}
+
+/* ==========================================================================
+   8. TABLES, CHARTS & LIST CONTAINERS
+   ========================================================================== */
+.table-card {
+  border: 1px solid var(--card-border);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+  transition: box-shadow 0.3s var(--ease-fluid);
+}
+
+.table-card:hover {
+  box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.07);
+}
+
+.table thead th {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #475569;
+  font-weight: 700;
+  padding-top: 0.9rem;
+  padding-bottom: 0.9rem;
+}
+
+.table tbody tr {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(79, 70, 229, 0.04);
+}
+
+.badge {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform 0.2s var(--ease-spring);
+}
+
+/* ==========================================================================
+   9. MODERN FOOTER & ACCESSIBILITY REDUCED-MOTION SUPPORT
+   ========================================================================== */
+.footer-custom {
+  background-color: var(--primary-dark);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+
+.footer-custom a {
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-custom a:hover {
+  color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
